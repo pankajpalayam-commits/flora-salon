@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-flora-white text-flora-grey-dark font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-flora-black;
+  }
+
+  a,
+  button {
+    @apply transition-colors duration-200 ease-premium;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.flora.gold");
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

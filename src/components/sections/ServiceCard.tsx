@@ -12,7 +12,7 @@ export function ServiceCard({ service }: { service: Service }) {
           alt={service.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-{center-15%} transition-transform duration-500 ease-premium group-hover:scale-105"
+          className="object-cover object-{center-10%} transition-transform duration-500 ease-premium group-hover:scale-105"
         />
       </div>
       <div className="p-6">

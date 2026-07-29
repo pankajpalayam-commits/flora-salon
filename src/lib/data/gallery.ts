@@ -8,7 +8,6 @@ export const galleryItems: GalleryItem[] = [
   { id: "g5", category: "salon", image: "/images/gallery/salon-interior-1.jpg", alt: "FLORA salon interior" },
   { id: "g6", category: "before-after", image: "/images/gallery/before-after-1.jpg", alt: "Hair transformation before and after" },
   { id: "g7", category: "video", image: "/images/gallery/salon-video-thumb.jpg", alt: "Salon walkthrough video", isVideo: true },
-  { id: "g4", category: "bridal", image: "/images/gallery/bridal-1.jpg", alt: "Bridal makeup look" },
    { id: "g8", category: "bridal", image: "/images/gallery/bridal-2.jpg", alt: "Bridal makeup look 2" },
    { id: "g9", category: "bridal", image: "/images/gallery/bridal-3.jpg", alt: "Bridal makeup look 3" },
 ];

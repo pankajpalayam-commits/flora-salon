@@ -69,3 +69,17 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="h-8 w-5 rounded-full border border-flora-white/50 flex items-start justify-center p-1"
+        >
+          <div className="h-1.5 w-1.5 rounded-full bg-flora-gold" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}

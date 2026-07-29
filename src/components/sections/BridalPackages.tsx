@@ -60,7 +60,7 @@ export function BridalPackages() {
                     alt={pkg.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-cover object-[center-15%]"
                   />
                 </div>
                 <div className={reversed ? "lg:order-1" : undefined}>

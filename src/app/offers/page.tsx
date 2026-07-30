@@ -45,24 +45,24 @@ export default function OffersPage() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {offers.map((offer) => (
               <Card key={offer.id} className="overflow-hidden">
-                <div className="relative h-48 w-full">
+                <div className="relative h-64 w-full bg-flora-grey-light">
                   <div className="grid h-full grid-cols-2 gap-0.5">
-                    <div className="relative">
+                    <div className="relative bg-flora-grey-light">
                       <Image
                         src={offer.images[0]}
                         alt={offer.title + " photo 1"}
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
-                    <div className="relative">
+                    <div className="relative bg-flora-grey-light">
                       <Image
                         src={offer.images[1]}
                         alt={offer.title + " photo 2"}
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   </div>

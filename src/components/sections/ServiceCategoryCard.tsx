@@ -12,8 +12,6 @@ import type { ServiceCategory } from "@/lib/data/service-categories";
 import { Card } from "@/components/ui/Card";
 import { siteConfig } from "@/config/site";
 
-// Swap any of these for a different lucide-react icon if you'd like a different look:
-// https://lucide.dev/icons
 const categoryIcons: Record<string, LucideIcon> = {
   "haircuts-styling": Scissors,
   "hair-color": Palette,
@@ -31,9 +29,8 @@ interface ServiceCategoryCardProps {
 
 export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProps) {
   const Icon = categoryIcons[category.slug] ?? Scissors;
-  const whatsappHref = `${siteConfig.social.whatsapp}?text=${encodeURIComponent(
-   `Hi, I would like to know more about ${category.title}`
-  )}`;
+  const message = "Hi, I would like to know more about " + category.title;
+  const whatsappHref = siteConfig.social.whatsapp + "?text=" + encodeURIComponent(message);
 
   return (
     <Card className="bg-flora-grey-light border-none shadow-none p-8">
@@ -54,7 +51,7 @@ export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProp
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm font-medium text-flora-black hover:text-flora-gold"
-          aria-label={`Ask about ${category.title} on WhatsApp`}
+          aria-label={"Ask about " + category.title + " on WhatsApp"}
         >
           Learn More &rarr;
         </a>

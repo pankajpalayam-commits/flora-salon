@@ -2,6 +2,27 @@ import type { Service } from "@/types/service";
 
 export const services: Service[] = [
   {
+    slug: "bridal-makeup",
+    name: "Bridal Makeup",
+    category: "bridal",
+    shortDescription: "Timeless bridal looks crafted for your big day.",
+    image: "/images/services/bridal-makeup.jpg",
+  },
+  {
+    slug: "groom-makeup",
+    name: "Groom Makeup",
+    category: "bridal",
+    shortDescription: "Sharp, camera-ready grooming for the groom.",
+    image: "/images/services/groom-makeup.jpg",
+  },
+  {
+    slug: "party-makeup",
+    name: "Party Makeup",
+    category: "bridal",
+    shortDescription: "Glamorous makeup for every celebration.",
+    image: "/images/services/party-makeup.jpg",
+  },
+  {
     slug: "haircut",
     name: "Haircut",
     category: "hair",
@@ -84,26 +105,5 @@ export const services: Service[] = [
     category: "skin",
     shortDescription: "Precise, gentle shaping for brows and facial hair.",
     image: "/images/services/threading.jpg",
-  },
-  {
-    slug: "bridal-makeup",
-    name: "Bridal Makeup",
-    category: "bridal",
-    shortDescription: "Timeless bridal looks crafted for your big day.",
-    image: "/images/services/bridal-makeup.jpg",
-  },
-  {
-    slug: "groom-makeup",
-    name: "Groom Makeup",
-    category: "bridal",
-    shortDescription: "Sharp, camera-ready grooming for the groom.",
-    image: "/images/services/groom-makeup.jpg",
-  },
-  {
-    slug: "party-makeup",
-    name: "Party Makeup",
-    category: "bridal",
-    shortDescription: "Glamorous makeup for every celebration.",
-    image: "/images/services/party-makeup.jpg",
   },
 ];

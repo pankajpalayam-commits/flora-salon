@@ -130,3 +130,7 @@ export function WhyChooseFlora() {
             );
           })}
         </div>
+      </Container>
+    </section>
+  );
+}

@@ -29,9 +29,9 @@ export function ServicesFilterGrid() {
         ]}
       />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((service) => (
-          <ServiceCard key={service.slug} service={service} />
-        ))}
+        {hairServices.map((service, i) => (
+  <ServiceCard key={service.slug} service={service} index={i + 1} />
+))}
       </div>
     </>
   );

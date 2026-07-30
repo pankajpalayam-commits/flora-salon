@@ -119,7 +119,7 @@ export function WhyChooseFlora() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 1.2, delay: i * 0.08, ease: [0.4, 0, 0.2, 1] }}
               >
                 <Card className="p-8 text-center hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
                   <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-flora-gold-soft">

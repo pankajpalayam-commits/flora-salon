@@ -44,7 +44,7 @@ export function ServiceCategoryCard({ category, index, linkMode = "internal", de
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 1.2, delay, ease: [0.4, 0, 0.2, 1] }}
     >
       <Card className="bg-flora-grey-light border-none shadow-none p-8 hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
         <p className="text-xs font-medium text-flora-gold mb-4">{String(index).padStart(2, "0")}</p>

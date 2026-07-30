@@ -103,13 +103,20 @@ export function WhyChooseFlora() {
           title="Why Choose FLORA"
           align="center"
         />
+
+        <div className="mx-auto mb-16 max-w-xl">
+          {metrics.map((metric) => (
+            <AnimatedBar key={metric.label} label={metric.label} value={metric.value} />
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((reason) => {
             const Icon = reason.icon;
             return (
               <Card
                 key={reason.title}
-                className="p-8 text-center hover:scale-105 hover:shadow-xl hover:border-flora-gold/30"
+                className="p-8 text-center hover:scale-110 hover:shadow-xl hover:border-flora-gold/30"
               >
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-flora-gold-soft">
                   <Icon
@@ -123,13 +130,3 @@ export function WhyChooseFlora() {
             );
           })}
         </div>
-
-        <div className="mx-auto mt-20 max-w-xl">
-          {metrics.map((metric) => (
-            <AnimatedBar key={metric.label} label={metric.label} value={metric.value} />
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}

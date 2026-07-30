@@ -37,8 +37,8 @@ export default function HairTreatmentsPage() {
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {hairServices.map((service, i) => (
-  <ServiceCard key={service.slug} service={service} index={i + 1} />
-))}
+              <ServiceCard key={service.slug} service={service} index={i + 1} />
+            ))}
           </div>
           <div className="mt-16 text-center">
             <Button href="/contact" variant="primary">

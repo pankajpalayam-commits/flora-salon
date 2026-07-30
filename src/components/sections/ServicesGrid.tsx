@@ -18,8 +18,8 @@ export function ServicesGrid() {
         />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((service, i) => (
-  <ServiceCard key={service.slug} service={service} index={i + 1} />
-))}
+            <ServiceCard key={service.slug} service={service} index={i + 1} />
+          ))}
         </div>
         <div className="mt-12 text-center">
           <Button href="/services" variant="ghost">

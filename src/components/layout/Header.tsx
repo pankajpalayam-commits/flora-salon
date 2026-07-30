@@ -15,17 +15,23 @@ export function Header() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // On mobile, the header is ALWAYS solid white with dark text/icons —
+  // this does not depend on scroll position at all, so it can never end up
+  // invisible against a light page background. The transparent-over-hero
+  // effect (switching to solid once scrolled) only applies on desktop
+  // (md breakpoint and up).
+  const desktopTransparent = !scrolled;
 
   return (
     <header
       className={clsx(
         "fixed top-0 z-40 w-full transition-colors duration-300 ease-premium",
-        scrolled
-          ? "bg-flora-white/95 backdrop-blur shadow-sm"
-          : "bg-transparent"
+        "bg-flora-white/95 backdrop-blur shadow-sm",
+        desktopTransparent && "md:bg-transparent md:shadow-none md:backdrop-blur-none"
       )}
     >
       <div className="mx-auto flex max-w-content items-center justify-between px-6 py-4 md:px-10">
@@ -46,8 +52,8 @@ export function Header() {
               <Link
                 href={item.href}
                 className={clsx(
-                  "text-sm font-medium hover:text-flora-gold",
-                  scrolled ? "text-flora-grey-dark" : "text-flora-white"
+                  "text-sm font-medium hover:text-flora-gold text-flora-grey-dark",
+                  desktopTransparent && "md:text-flora-white"
                 )}
               >
                 {item.label}
@@ -80,10 +86,7 @@ export function Header() {
         <button
           onClick={() => setMobileOpen(true)}
           aria-label="Open menu"
-          className={clsx(
-            "md:hidden text-2xl leading-none",
-            scrolled ? "text-flora-black" : "text-flora-white"
-          )}
+          className="md:hidden text-2xl leading-none text-flora-black"
         >
           &#9776;
         </button>

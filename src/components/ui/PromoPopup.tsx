@@ -67,14 +67,25 @@ export function PromoPopup() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {offers.map((offer) => (
                 <div key={offer.id} className="overflow-hidden rounded-xl">
-                  <div className="relative h-36 w-full">
-                    <Image
-                      src={offer.image}
-                      alt={offer.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                      className="object-cover"
-                    />
+                  <div className="grid h-36 grid-cols-2 gap-0.5">
+                    <div className="relative">
+                      <Image
+                        src={offer.images[0]}
+                        alt={offer.title + " photo 1"}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative">
+                      <Image
+                        src={offer.images[1]}
+                        alt={offer.title + " photo 2"}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                   <div className="bg-flora-grey-light p-3">
                     <p className="text-sm font-medium text-flora-black">{offer.title}</p>

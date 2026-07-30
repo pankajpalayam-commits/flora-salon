@@ -46,13 +46,26 @@ export default function OffersPage() {
             {offers.map((offer) => (
               <Card key={offer.id} className="overflow-hidden">
                 <div className="relative h-48 w-full">
-                  <Image
-                    src={offer.image}
-                    alt={offer.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
+                  <div className="grid h-full grid-cols-2 gap-0.5">
+                    <div className="relative">
+                      <Image
+                        src={offer.images[0]}
+                        alt={offer.title + " photo 1"}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative">
+                      <Image
+                        src={offer.images[1]}
+                        alt={offer.title + " photo 2"}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
                   <span className="absolute top-4 right-4 rounded-full bg-flora-gold px-3 py-1 text-xs font-medium text-flora-black">
                     Valid till {formatDate(offer.validUntil)}
                   </span>

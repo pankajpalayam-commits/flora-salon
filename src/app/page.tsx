@@ -20,9 +20,9 @@ export const metadata: Metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
-<Hero />
-<StatsCounter />
-<WhyChooseFlora />
+      <Hero />
+      <StatsCounter />
+      <WhyChooseFlora />
       <ServicesGrid />
       <BridalShowcase />
       <GalleryGrid />

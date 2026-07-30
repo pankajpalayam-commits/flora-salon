@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Scissors,
   Palette,
@@ -25,13 +26,14 @@ const categoryIcons: Record<string, LucideIcon> = {
 interface ServiceCategoryCardProps {
   category: ServiceCategory;
   index: number;
+  linkMode?: "internal" | "whatsapp";
 }
 
-export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProps) {
+export function ServiceCategoryCard({ category, index, linkMode = "internal" }: ServiceCategoryCardProps) {
   const Icon = categoryIcons[category.slug] ?? Scissors;
   const message = "Hi, I would like to know more about " + category.title;
   const whatsappHref = siteConfig.social.whatsapp + "?text=" + encodeURIComponent(message);
-  const linkLabel = "Ask about " + category.title + " on WhatsApp";
+  const linkLabel = linkMode === "whatsapp" ? "Ask about " + category.title + " on WhatsApp" : "Learn more about " + category.title;
 
   return (
     <Card className="bg-flora-grey-light border-none shadow-none p-8">
@@ -40,7 +42,11 @@ export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProp
       <p className="text-sm text-flora-grey-dark/80 mb-8">{category.description}</p>
       <div className="flex items-center justify-between">
         <Icon className="h-8 w-8 text-flora-gold group-hover:animate-spin-once" strokeWidth={1.5} />
-        <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-flora-black hover:text-flora-gold" aria-label={linkLabel}>Learn More &rarr;</a>
+        {linkMode === "whatsapp" ? (
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-flora-black hover:text-flora-gold" aria-label={linkLabel}>Learn More &rarr;</a>
+        ) : (
+          <Link href={category.href} className="text-sm font-medium text-flora-black hover:text-flora-gold" aria-label={linkLabel}>Learn More &rarr;</Link>
+        )}
       </div>
     </Card>
   );

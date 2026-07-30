@@ -36,7 +36,7 @@ export function ServiceCategoryCard({ category, index, linkMode = "internal" }: 
   const linkLabel = linkMode === "whatsapp" ? "Ask about " + category.title + " on WhatsApp" : "Learn more about " + category.title;
 
   return (
-    <Card className="bg-flora-grey-light border-none shadow-none p-8">
+    <Card className="bg-flora-grey-light border-none shadow-none p-8 hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
       <p className="text-xs font-medium text-flora-gold mb-4">{String(index).padStart(2, "0")}</p>
       <h3 className="text-h3 font-display mb-3">{category.title}</h3>
       <p className="text-sm text-flora-grey-dark/80 mb-8">{category.description}</p>

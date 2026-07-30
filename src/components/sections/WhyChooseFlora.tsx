@@ -111,22 +111,27 @@ export function WhyChooseFlora() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {reasons.map((reason) => {
+          {reasons.map((reason, i) => {
             const Icon = reason.icon;
             return (
-              <Card
+              <motion.div
                 key={reason.title}
-                className="p-8 text-center hover:scale-110 hover:shadow-xl hover:border-flora-gold/30"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-flora-gold-soft">
-                  <Icon
-                    className="h-7 w-7 text-flora-gold group-hover:animate-spin-once"
-                    strokeWidth={1.5}
-                  />
-                </div>
-                <h3 className="text-h3 font-display mb-2">{reason.title}</h3>
-                <p className="text-sm text-flora-grey-dark/80">{reason.description}</p>
-              </Card>
+                <Card className="p-8 text-center hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-flora-gold-soft">
+                    <Icon
+                      className="h-7 w-7 text-flora-gold group-hover:animate-spin-once"
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <h3 className="text-h3 font-display mb-2">{reason.title}</h3>
+                  <p className="text-sm text-flora-grey-dark/80">{reason.description}</p>
+                </Card>
+              </motion.div>
             );
           })}
         </div>

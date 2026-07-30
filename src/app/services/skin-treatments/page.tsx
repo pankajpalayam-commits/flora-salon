@@ -36,8 +36,8 @@ export default function SkinTreatmentsPage() {
       <section className="bg-flora-white py-24 md:py-32">
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {skinServices.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
+            {skinServices.map((service, i) => (
+              <ServiceCard key={service.slug} service={service} index={i + 1} />/>
             ))}
           </div>
           <div className="mt-16 text-center">

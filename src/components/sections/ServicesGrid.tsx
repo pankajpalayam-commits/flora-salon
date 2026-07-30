@@ -9,7 +9,7 @@ export function ServicesGrid() {
   const featured = services.slice(0, 6);
 
   return (
-    <section className="bg-flora-grey-light py-24 md:py-32">
+    <section className="bg-flora-white py-24 md:py-32">
       <Container>
         <SectionHeading
           eyebrow="Our Services"

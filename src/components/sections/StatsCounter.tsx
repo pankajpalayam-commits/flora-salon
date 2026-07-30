@@ -6,10 +6,10 @@ import { Container } from "@/components/ui/Container";
 
 // EDIT THESE — replace with your real numbers
 const stats = [
-  { label: "Years of Experience", value: 3+, suffix: "+" },
-  { label: "Happy Clients", value: 6000+, suffix: "+" },
-  { label: "Services Offered", value: 45+, suffix: "+" },
-  { label: "5-Star Reviews", value: 500+, suffix: "+" },
+  { label: "Years of Experience", value: 3, suffix: "+" },
+  { label: "Happy Clients", value: 6000, suffix: "+" },
+  { label: "Services Offered", value: 45, suffix: "+" },
+  { label: "5-Star Reviews", value: 500, suffix: "+" },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {

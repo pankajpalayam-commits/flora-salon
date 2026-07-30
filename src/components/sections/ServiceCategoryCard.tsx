@@ -32,7 +32,7 @@ interface ServiceCategoryCardProps {
 export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProps) {
   const Icon = categoryIcons[category.slug] ?? Scissors;
   const whatsappHref = `${siteConfig.social.whatsapp}?text=${encodeURIComponent(
-    `Hi, I'd like to know more about ${category.title}`
+   `Hi, I would like to know more about ${category.title}`
   )}`;
 
   return (

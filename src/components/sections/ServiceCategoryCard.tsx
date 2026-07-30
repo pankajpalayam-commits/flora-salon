@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Scissors,
   Palette,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import type { ServiceCategory } from "@/lib/data/service-categories";
 import { Card } from "@/components/ui/Card";
+import { siteConfig } from "@/config/site";
 
 // Swap any of these for a different lucide-react icon if you'd like a different look:
 // https://lucide.dev/icons
@@ -31,6 +31,9 @@ interface ServiceCategoryCardProps {
 
 export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProps) {
   const Icon = categoryIcons[category.slug] ?? Scissors;
+  const whatsappHref = `${siteConfig.social.whatsapp}?text=${encodeURIComponent(
+    `Hi, I'd like to know more about ${category.title}`
+  )}`;
 
   return (
     <Card className="bg-flora-grey-light border-none shadow-none p-8">
@@ -46,13 +49,15 @@ export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProp
           className="h-8 w-8 text-flora-gold group-hover:animate-spin-once"
           strokeWidth={1.5}
         />
-        <Link
-          href={category.href}
+        
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-sm font-medium text-flora-black hover:text-flora-gold"
-          aria-label={`Learn more about ${category.title}`}
+          aria-label={`Ask about ${category.title} on WhatsApp`}
         >
           Learn More &rarr;
-        </Link>
+        </a>
       </div>
     </Card>
   );

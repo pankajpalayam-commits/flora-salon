@@ -36,7 +36,7 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/flora.family.salon",
     facebook: "https://www.facebook.com/people/Flora-Kilimanoor/61554724349679/",
     whatsapp: "https://wa.me/919847701117",
-    googleReviews: "#",
+    googleReviews: "https://www.google.com/maps?cid=15971371114358131355",
   },
 
   nav: [

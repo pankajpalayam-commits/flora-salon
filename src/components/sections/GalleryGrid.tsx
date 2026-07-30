@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { GalleryPhoto } from "@/components/ui/GalleryPhoto";
 import { galleryItems } from "@/lib/data/gallery";
 
 export function GalleryGrid() {
@@ -14,19 +14,15 @@ export function GalleryGrid() {
           align="center"
         />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          {galleryItems.map((item) => (
-            <div
+          {galleryItems.map((item, i) => (
+            <GalleryPhoto
               key={item.id}
-              className="relative aspect-square overflow-hidden rounded-lg"
-            >
-              <Image
-                src={item.image}
-                alt={item.alt}
-                fill
-                sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 ease-premium hover:scale-105"
-              />
-            </div>
+              src={item.image}
+              alt={item.alt}
+              sizes="(max-width: 768px) 50vw, 33vw"
+              containerClassName="aspect-square rounded-lg"
+              delay={i * 0.06}
+            />
           ))}
         </div>
         <div className="mt-12 text-center">

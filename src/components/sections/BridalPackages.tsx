@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Expand } from "lucide-react";
 import { clsx } from "clsx";
 import { Container } from "@/components/ui/Container";
 import { AnimatedDivider } from "@/components/ui/AnimatedDivider";
@@ -49,9 +53,13 @@ export function BridalPackages() {
                 key={pkg.title}
                 className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2"
               >
-                <div
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
                   className={clsx(
-                    "relative h-72 w-full overflow-hidden rounded-xl lg:h-96",
+                    "group relative h-72 w-full overflow-hidden rounded-xl lg:h-96",
                     reversed && "lg:order-2"
                   )}
                 >
@@ -60,10 +68,22 @@ export function BridalPackages() {
                     alt={pkg.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-[center_20%]"
+                    className="object-cover transition-transform duration-700 ease-premium group-hover:scale-110"
                   />
-                </div>
-                <div className={reversed ? "lg:order-1" : undefined}>
+                  <div className="absolute inset-0 flex items-center justify-center bg-flora-black/0 transition-colors duration-500 ease-premium group-hover:bg-flora-black/40">
+                    <Expand
+                      className="h-8 w-8 text-flora-white opacity-0 scale-75 transition-all duration-500 ease-premium group-hover:opacity-100 group-hover:scale-100"
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+                  className={reversed ? "lg:order-1" : undefined}
+                >
                   <AnimatedDivider className="mb-5" />
                   <h3 className="text-h2 font-display mb-4">{pkg.title}</h3>
                   <p className="text-flora-grey-dark/80 max-w-md mb-6">
@@ -72,7 +92,7 @@ export function BridalPackages() {
                   <Button href="/contact" variant="ghost">
                     Book Consultation
                   </Button>
-                </div>
+                </motion.div>
               </div>
             );
           })}

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Expand } from "lucide-react";
 import { FilterTabs } from "@/components/ui/FilterTabs";
 import { galleryItems } from "@/lib/data/gallery";
 import type { GalleryItem } from "@/types/gallery-item";
@@ -35,19 +37,26 @@ export function GalleryFilterGrid() {
         options={categoryLabels}
       />
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        {filtered.map((item) => (
-          <div key={item.id} className="relative aspect-square overflow-hidden rounded-lg">
+        {filtered.map((item, i) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: i * 0.06, ease: [0.4, 0, 0.2, 1] }}
+            className="group relative aspect-square overflow-hidden rounded-lg"
+          >
             <Image
               src={item.image}
               alt={item.alt}
               fill
               sizes="(max-width: 768px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 ease-premium hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-premium group-hover:scale-110"
             />
-            {item.isVideo && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+            {item.isVideo ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-flora-black/20 transition-colors duration-500 ease-premium group-hover:bg-flora-black/40">
                 <span
-                  className="flex h-14 w-14 items-center justify-center rounded-full bg-flora-white/90"
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-flora-white/90 transition-transform duration-500 ease-premium group-hover:scale-110"
                   aria-label="Play video"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 text-flora-black" fill="currentColor" aria-hidden="true">
@@ -55,8 +64,15 @@ export function GalleryFilterGrid() {
                   </svg>
                 </span>
               </div>
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-flora-black/0 transition-colors duration-500 ease-premium group-hover:bg-flora-black/40">
+                <Expand
+                  className="h-8 w-8 text-flora-white opacity-0 scale-75 transition-all duration-500 ease-premium group-hover:opacity-100 group-hover:scale-100"
+                  strokeWidth={1.5}
+                />
+              </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
     </>

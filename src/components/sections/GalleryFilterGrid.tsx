@@ -43,7 +43,7 @@ export function GalleryFilterGrid() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: i * 0.06, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 1.1, delay: i * 0.06, ease: [0.4, 0, 0.2, 1] }}
             className="group relative aspect-square overflow-hidden rounded-lg"
           >
             <Image

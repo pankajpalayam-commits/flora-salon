@@ -57,7 +57,7 @@ export function BridalPackages() {
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
                   className={clsx(
                     "group relative h-72 w-full overflow-hidden rounded-xl lg:h-96",
                     reversed && "lg:order-2"
@@ -81,7 +81,7 @@ export function BridalPackages() {
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: 1.1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                   className={reversed ? "lg:order-1" : undefined}
                 >
                   <AnimatedDivider className="mb-5" />

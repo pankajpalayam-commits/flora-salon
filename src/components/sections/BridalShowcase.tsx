@@ -15,7 +15,7 @@ export function BridalShowcase() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
         >
           <p className="text-caption uppercase text-flora-gold mb-3">Bridal</p>
           <AnimatedDivider className="mb-5" />
@@ -36,7 +36,7 @@ export function BridalShowcase() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           className="group relative h-80 w-full overflow-hidden rounded-xl lg:h-[420px]"
         >
           <Image

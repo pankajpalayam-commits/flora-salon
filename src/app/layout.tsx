@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloatButton } from "@/components/layout/WhatsAppFloatButton";
+import { PromoPopup } from "@/components/ui/PromoPopup";
 import { siteConfig } from "@/config/site";
 import { buildLocalBusinessSchema } from "@/lib/seo/jsonld";
 
@@ -52,6 +53,7 @@ export default function RootLayout({
         <main id="main-content">{children}</main>
         <Footer />
         <WhatsAppFloatButton />
+        <PromoPopup />
       </body>
     </html>
   );

@@ -34,7 +34,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Site navigation"
-          className="fixed inset-0 z-50 bg-flora-black md:hidden"
+          className="fixed inset-0 z-[100] bg-flora-black md:hidden"
         >
           <div className="flex justify-end p-6">
             <button

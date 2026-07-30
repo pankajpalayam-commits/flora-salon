@@ -35,8 +35,8 @@ export default function ServicesPage() {
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {serviceCategories.map((category, i) => (
-  <ServiceCategoryCard key={category.slug} category={category} index={i + 1} linkMode="whatsapp" />
-))}
+              <ServiceCategoryCard key={category.slug} category={category} index={i + 1} />
+            ))}
           </div>
           <div className="mt-16 rounded-2xl bg-flora-grey-light p-10 text-center md:p-16">
             <h2 className="text-h3 font-display mb-3">

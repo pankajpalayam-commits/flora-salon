@@ -47,6 +47,8 @@ export function ServiceCategoryCard({ category, index }: ServiceCategoryCardProp
           strokeWidth={1.5}
         />
         
+         />
+        
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"

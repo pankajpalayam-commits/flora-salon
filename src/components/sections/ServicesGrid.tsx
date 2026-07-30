@@ -17,9 +17,9 @@ export function ServicesGrid() {
           description="From precision haircuts to bridal transformations, every service is delivered with premium products and a personalized approach."
         />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((service) => (
-            <ServiceCard key={service.slug} service={service} />
-          ))}
+          {featured.map((service, i) => (
+  <ServiceCard key={service.slug} service={service} index={i + 1} />
+))}
         </div>
         <div className="mt-12 text-center">
           <Button href="/services" variant="ghost">

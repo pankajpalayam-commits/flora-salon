@@ -1,24 +1,21 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { services } from "@/lib/data/services";
-import { ServiceCard } from "./ServiceCard";
+import { serviceCategories } from "@/lib/data/service-categories";
+import { ServiceCategoryCard } from "./ServiceCategoryCard";
 
 export function ServicesGrid() {
-  // Homepage shows a curated preview; full list lives on /services
-  const featured = services.slice(0, 6);
-
   return (
     <section className="bg-flora-white py-24 md:py-32">
       <Container>
         <SectionHeading
-          eyebrow="Our Services"
-          title="Hair, Skin &amp; Bridal Services in Kilimanoor"
-          description="From precision haircuts to bridal transformations, every service is delivered with premium products and a personalized approach."
+          eyebrow="Popular Services"
+          title="We Provide Exceptional Salon Services for All Your Beauty Needs"
+          align="center"
         />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((service, i) => (
-            <ServiceCard key={service.slug} service={service} index={i + 1} />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {serviceCategories.map((category, i) => (
+            <ServiceCategoryCard key={category.slug} category={category} index={i + 1} />
           ))}
         </div>
         <div className="mt-12 text-center">

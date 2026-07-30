@@ -4,7 +4,8 @@ import { buildBreadcrumbSchema } from "@/lib/seo/jsonld";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { ServicesFilterGrid } from "@/components/sections/ServicesFilterGrid";
+import { ServiceCategoryCard } from "@/components/sections/ServiceCategoryCard";
+import { serviceCategories } from "@/lib/data/service-categories";
 
 export const metadata: Metadata = buildMetadata({
   title: "Hair, Skin & Bridal Services in Kilimanoor, Trivandrum",
@@ -32,7 +33,11 @@ export default function ServicesPage() {
       />
       <section className="bg-flora-white py-24 md:py-32">
         <Container>
-          <ServicesFilterGrid />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {serviceCategories.map((category, i) => (
+              <ServiceCategoryCard key={category.slug} category={category} index={i + 1} />
+            ))}
+          </div>
           <div className="mt-16 rounded-2xl bg-flora-grey-light p-10 text-center md:p-16">
             <h2 className="text-h3 font-display mb-3">
               Not sure which service is right for you?

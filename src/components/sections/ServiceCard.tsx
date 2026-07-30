@@ -63,9 +63,9 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
       </p>
       <div className="flex items-center justify-between">
         <Icon
-          className="h-8 w-8 text-flora-gold transition-transform duration-500 ease-premium group-hover:rotate-12 group-hover:scale-110"
-          strokeWidth={1.5}
-        />
+  className="h-8 w-8 text-flora-gold group-hover:animate-spin-once"
+  strokeWidth={1.5}
+/>
         <Link
           href={`/services/${service.category === "hair" ? "hair-treatments" : service.category === "skin" ? "skin-treatments" : "bridal"}#${service.slug}`}
           className="text-sm font-medium text-flora-black hover:text-flora-gold"

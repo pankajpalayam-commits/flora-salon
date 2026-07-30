@@ -1,12 +1,41 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 
-const headlineLines = ["Beautiful Hair.", "Healthy Skin.", "Confident You."];
+// EDIT THESE — each slide is a 3-line headline + one subheading line.
+// Rotates automatically every 5 seconds.
+const slides = [
+  {
+    lines: ["Beautiful Hair.", "Healthy Skin.", "Confident You."],
+    sub: "Premium Hair, Skin & Bridal Services in Kilimanoor, Trivandrum.",
+  },
+  {
+    lines: ["Bridal Looks,", "Beautifully", "Crafted."],
+    sub: "HD & Airbrush Bridal Makeup Artists in Trivandrum.",
+  },
+  {
+    lines: ["Kilimanoor's", "Trusted Family", "Salon."],
+    sub: "Experienced Professionals. Premium Products. Hygienic Care.",
+  },
+];
+
+const AUTO_ADVANCE_MS = 5000;
 
 export function Hero() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(timer);
+  }, []);
+
+  const current = slides[index];
+
   return (
     <section className="relative flex h-screen min-h-[640px] w-full items-center justify-center overflow-hidden bg-flora-black">
       <div className="absolute inset-0 bg-gradient-to-b from-flora-black/60 via-flora-black/70 to-flora-black" />
@@ -25,28 +54,28 @@ export function Hero() {
           FLORA - Unisex Family Salon-Kilimanoor Trivandrum
         </p>
 
-        <h1 className="font-display text-h1 text-flora-white">
-          {headlineLines.map((line, i) => (
-            <motion.span
-              key={line}
-              initial={{ opacity: 0, y: 24 }}
+        <div className="relative min-h-[9rem] md:min-h-[15rem]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.4, 0, 0.2, 1] }}
-              className="block"
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             >
-              {line}
-            </motion.span>
-          ))}
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="mx-auto mt-6 max-w-xl text-flora-white/80"
-        >
-          Premium Hair, Skin &amp; Bridal Services in Kilimanoor, Trivandrum.
-        </motion.p>
+              <h1 className="font-display text-h1 text-flora-white">
+                {current.lines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+              <p className="mx-auto mt-6 max-w-xl text-flora-white/80">
+                {current.sub}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -64,6 +93,19 @@ export function Hero() {
             WhatsApp
           </Button>
         </motion.div>
+
+        <div className="mt-8 flex justify-center gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Show slide ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === index ? "w-6 bg-flora-gold" : "w-2 bg-flora-white/30"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       <motion.div

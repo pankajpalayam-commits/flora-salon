@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { Hero } from "@/components/sections/Hero";
+import { StatsCounter } from "@/components/sections/StatsCounter";
 import { WhyChooseFlora } from "@/components/sections/WhyChooseFlora";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { BridalShowcase } from "@/components/sections/BridalShowcase";
@@ -19,8 +20,9 @@ export const metadata: Metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <WhyChooseFlora />
+<Hero />
+<StatsCounter />
+<WhyChooseFlora />
       <ServicesGrid />
       <BridalShowcase />
       <GalleryGrid />

@@ -38,3 +38,11 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Some mobile browsers render autoplaying <video> elements in their own
+   hardware-accelerated layer that ignores normal z-index stacking,
+   causing them to visually "bleed through" overlays above them. Hiding
+   video while the mobile menu is open avoids this. */
+body.mobile-menu-open video {
+  visibility: hidden;
+}

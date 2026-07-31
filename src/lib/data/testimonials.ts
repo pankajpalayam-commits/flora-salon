@@ -3,34 +3,41 @@ import type { Testimonial } from "@/types/testimonial";
 export const testimonials: Testimonial[] = [
   {
     id: "t1",
-    name: "Anjali R.",
+    name: "Abhaya Vijayan",
     rating: 5,
     quote:
-      "The bridal makeup team understood exactly what I wanted. I felt like the best version of myself on my wedding day.",
-    service: "Bridal Makeup",
+      "Had excellent service at the parlour. Loved the experience, amazing service and staff.",
   },
   {
     id: "t2",
-    name: "Vishnu K.",
+    name: "Resmi Suresh",
     rating: 5,
     quote:
-      "Best hair spa in Kilimanoor, hands down. The staff are skilled and the salon is spotless.",
-    service: "Hair Spa",
+      "I was thoroughly impressed with the service! The staff were friendly and welcoming, and the dandruff treatment, haircut and Botox was done perfectly.",
+    service: "Hair Botox & Haircut",
   },
   {
     id: "t3",
-    name: "Meera S.",
+    name: "Safa Safz",
     rating: 5,
     quote:
-      "My hair botox treatment completely transformed my damaged hair. Booking again for my next touch-up.",
-    service: "Hair Botox",
+      "Quality service at affordable prices. I did my hair spa, pedicure and fruit facial — I am so satisfied with the service.",
+    service: "Hair Spa & Facial",
   },
   {
     id: "t4",
-    name: "Arun P.",
+    name: "Muhammed Ibrahim",
     rating: 5,
     quote:
-      "A genuinely premium experience for the whole family — my kids, my wife and I all get our haircuts here now.",
-    service: "Haircut",
+      "Visiting FLORA felt more like a comfort zone than a parlour. I loved the haircut, and even the threading was done so well.",
+    service: "Haircut & Threading",
+  },
+  {
+    id: "t5",
+    name: "Meenu Babu",
+    rating: 5,
+    quote:
+      "Did my bridal makeup at FLORA and it was really good — the staff's service was excellent. They really made me feel beautiful that day.",
+    service: "Bridal Makeup",
   },
 ];

@@ -33,6 +33,7 @@ export function buildLocalBusinessSchema() {
     description: siteConfig.description,
     url: siteConfig.url,
     image: `${siteConfig.url}${siteConfig.ogImage}`,
+    priceRange: "₹",
     telephone: business.phone,
     email: business.email,
     address: {

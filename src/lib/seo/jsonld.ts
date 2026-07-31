@@ -10,6 +10,19 @@ const ALL_WEEK_DAYS = [
   "Sunday",
 ];
 
+// schema.org requires opens/closes in 24-hour "HH:MM" format — this converts
+// our human-readable "9:30 AM" style strings (used for on-page display) into
+// that format for the JSON-LD only.
+function to24Hour(time12h: string): string {
+  const match = time12h.trim().match(/^(\d{1,2}):(\d{2})\s?(AM|PM)$/i);
+  if (!match) return time12h;
+  const [, hoursStr, minutes, meridiem] = match;
+  let hours = parseInt(hoursStr, 10);
+  if (meridiem.toUpperCase() === "PM" && hours !== 12) hours += 12;
+  if (meridiem.toUpperCase() === "AM" && hours === 12) hours = 0;
+  return `${String(hours).padStart(2, "0")}:${minutes}`;
+}
+
 export function buildLocalBusinessSchema() {
   const { business } = siteConfig;
 
@@ -19,6 +32,7 @@ export function buildLocalBusinessSchema() {
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
+    image: `${siteConfig.url}${siteConfig.ogImage}`,
     telephone: business.phone,
     email: business.email,
     address: {
@@ -40,8 +54,8 @@ export function buildLocalBusinessSchema() {
         "@type": "OpeningHoursSpecification",
         dayOfWeek:
           h.day.trim() === "Monday - Sunday" ? ALL_WEEK_DAYS : h.day,
-        opens: h.time.split(" - ")[0],
-        closes: h.time.split(" - ")[1],
+        opens: to24Hour(h.time.split(" - ")[0]),
+        closes: to24Hour(h.time.split(" - ")[1]),
       })),
     sameAs: [siteConfig.social.instagram, siteConfig.social.facebook],
   };

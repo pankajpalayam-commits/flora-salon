@@ -63,3 +63,202 @@
 body.mobile-menu-open video {
   visibility: hidden;
 }
+/* ------------------------------------------------------------------
+   Lighting & motion effects
+   All animation here uses transform/opacity (or a tiny text gradient),
+   and the reduced-motion block above freezes it for visitors who ask.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Gold light that follows the cursor. JS sets --spot-x / --spot-y. */
+  .spotlight {
+    --spot-x: 50%;
+    --spot-y: 50%;
+  }
+
+  .spotlight::before,
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  /* soft wash of light across the surface */
+  .spotlight::before {
+    background: radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      rgb(212 175 55 / 0.13),
+      transparent 45%
+    );
+  }
+
+  /* bright gold edge that lights up nearest the cursor */
+  .spotlight::after {
+    padding: 1px;
+    background: radial-gradient(
+      260px circle at var(--spot-x) var(--spot-y),
+      rgb(212 175 55 / 0.95),
+      transparent 60%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .spotlight:hover::before,
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+
+  /* Gold foil text with a slow travelling highlight */
+  .text-shimmer {
+    background: linear-gradient(
+      110deg,
+      #b8912f 0%,
+      #d4af37 30%,
+      #fff1c1 45%,
+      #d4af37 60%,
+      #b8912f 100%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 7s ease-in-out infinite;
+  }
+
+  /* Deep-gold variant for light backgrounds (keeps 4.5:1 contrast) */
+  .text-shimmer-deep {
+    background: linear-gradient(110deg, #6b4f14 0%, #7a5c1a 35%, #a8822e 48%, #7a5c1a 62%, #6b4f14 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  /* A diagonal sheen of light that crosses on hover */
+  .sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.45) 50%,
+      transparent 70%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sheen:hover::after,
+  .sheen:focus-visible::after {
+    transform: translateX(130%);
+  }
+
+  /* Same sheen, but it also passes by itself every few seconds */
+  .sheen-auto::after {
+    animation: sheen-pass 5s ease-in-out 2s infinite;
+  }
+}
+
+@layer utilities {
+  .animate-drift {
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  .animate-drift-slow {
+    animation: drift 28s ease-in-out infinite reverse;
+  }
+
+  .animate-twinkle {
+    animation: twinkle 3.2s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  55%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+@keyframes sheen-pass {
+  0%,
+  70% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(8%, -6%, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-6%, 6%, 0) scale(0.94);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}

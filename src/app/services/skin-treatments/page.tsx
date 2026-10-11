@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { services } from "@/lib/data/services";
+import { ServiceDetails } from "@/components/sections/ServiceDetails";
 
 export const metadata: Metadata = buildMetadata({
   title: "Skin & Facial Treatments in Kilimanoor, Trivandrum",
@@ -47,6 +48,7 @@ export default function SkinTreatmentsPage() {
           </div>
         </Container>
       </section>
+      <ServiceDetails services={skinServices} eyebrow="Skin Treatments" title="About our skin treatments" />
     </>
   );
 }

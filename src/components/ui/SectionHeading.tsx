@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { AnimatedDivider } from "./AnimatedDivider";
+import { RevealText } from "./RevealText";
 
 interface SectionHeadingProps {
   eyebrow: string;
@@ -38,7 +39,9 @@ export function SectionHeading({
         {eyebrow}
       </p>
       <AnimatedDivider align={align} className="mb-5" />
-      <h2 className={clsx("text-h2", isDark && "text-flora-white")}>{title}</h2>
+      <h2 className={clsx("text-h2", isDark && "text-flora-white")}>
+        <RevealText text={title} />
+      </h2>
       {description && (
         <p
           className={clsx(

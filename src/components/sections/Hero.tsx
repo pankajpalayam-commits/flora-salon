@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Clock, MapPin, Pause, Phone, Play, Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Sparkles } from "@/components/ui/Sparkles";
+import { useSpotlight } from "@/lib/hooks/useSpotlight";
 import { siteConfig } from "@/config/site";
 
 // EDIT THESE — each slide is a 3-line headline + one subheading line.
@@ -31,6 +33,13 @@ export function Hero() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackSpotlight = useSpotlight<HTMLElement>();
+
+  // As the hero scrolls away, its content lifts and fades slightly.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   // Rotation stops when the visitor pauses it, hovers/focuses the hero,
   // or has "reduce motion" switched on.
@@ -57,7 +66,9 @@ export function Hero() {
 
   return (
     <section
-      className="on-dark relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-flora-black"
+      ref={sectionRef}
+      onPointerMove={trackSpotlight}
+      className="spotlight-hero on-dark relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-flora-black"
       aria-roledescription="carousel"
       aria-label="FLORA highlights"
       onMouseEnter={() => setHovered(true)}
@@ -82,12 +93,26 @@ export function Hero() {
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-b from-flora-black/70 via-flora-black/55 to-flora-black"
       />
+      {/* Lighting: two slow-drifting gold glows, a cursor spotlight and sparkles */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="animate-drift absolute -left-32 top-10 h-[520px] w-[520px] rounded-full bg-flora-gold/15 blur-[110px]" />
+        <div className="animate-drift-slow absolute -right-40 bottom-0 h-[600px] w-[600px] rounded-full bg-flora-amber/25 blur-[120px]" />
+        <div className="animate-glow-pulse absolute left-1/2 top-[38%] h-[360px] w-[720px] -translate-x-1/2 rounded-[100%] bg-flora-gold/10 blur-[90px]" />
+      </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/3 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-flora-gold/10 blur-3xl"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 [.spotlight-hero:hover_&]:opacity-100"
+        style={{
+          background:
+            "radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 40%), rgb(212 175 55 / 0.16), transparent 50%)",
+        }}
       />
+      <Sparkles />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-content flex-1 flex-col items-center justify-center px-6 pb-12 pt-32 text-center md:px-10">
+      <motion.div
+        style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+        className="relative z-10 mx-auto flex w-full max-w-content flex-1 flex-col items-center justify-center px-6 pb-12 pt-32 text-center md:px-10"
+      >
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +124,10 @@ export function Hero() {
         </motion.p>
 
         <div className="relative min-h-[11rem] w-full sm:min-h-[13rem] md:min-h-[17rem]" aria-live={rotating ? "off" : "polite"}>
-          <AnimatePresence mode="wait">
+          {/* initial={false}: the first headline is painted immediately (it's
+              the page's main content for Google's LCP metric and for crawlers
+              that don't run JavaScript); later slides animate in. */}
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 16 }}
@@ -111,17 +139,27 @@ export function Hero() {
             >
               <h1 className="text-h1 text-flora-white">
                 {current.lines.map((line, i) => (
-                  <span
-                    key={line}
-                    className={i === 1 ? "block italic text-flora-gold" : "block"}
-                  >
-                    {line}
+                  <span key={line} className="block overflow-hidden pb-[0.08em]">
+                    <motion.span
+                      className={i === 1 ? "text-shimmer block pr-[0.1em] italic" : "block"}
+                      initial={{ y: "100%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {line}
+                    </motion.span>
+                    {i < current.lines.length - 1 && " "}
                   </span>
                 ))}
               </h1>
-              <p className="mx-auto mt-6 max-w-xl text-lg text-flora-white/80">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mx-auto mt-6 max-w-xl text-lg text-flora-white/80"
+              >
                 {current.sub}
-              </p>
+              </motion.p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -132,7 +170,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <Button href="/contact" variant="gold" className="px-9">
+          <Button href="/contact" variant="gold" shine className="px-9">
             Book Appointment
           </Button>
           <Button
@@ -183,7 +221,7 @@ export function Hero() {
             )}
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Trust strip */}
       <div className="relative z-10 border-t border-flora-white/10 bg-flora-black/60 backdrop-blur">

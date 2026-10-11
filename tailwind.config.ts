@@ -18,6 +18,9 @@ const config: Config = {
           gold: "#D4AF37",
           "gold-deep": "#7A5C1A",
           "gold-soft": "#EFE3BE",
+          "gold-light": "#E2C15A", // top of the gold button gradient
+          "gold-glint": "#FFF1C1", // brightest highlight in shimmer/progress
+          amber: "#8A5A1C", // warm glow colour in dark sections
           // WhatsApp brand green, darkened for 4.5:1 contrast with white
           whatsapp: "#1F8F4E",
           "whatsapp-hover": "#187A41",

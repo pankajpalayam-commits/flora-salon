@@ -43,7 +43,7 @@ export function GalleryFilterGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: (i % 3) * 0.05, ease: [0.4, 0, 0.2, 1] }}
-            className="group relative aspect-square overflow-hidden rounded-2xl bg-flora-grey-light"
+            className="sheen group relative aspect-square overflow-hidden rounded-2xl bg-flora-grey-light"
           >
             <Image
               src={item.image}

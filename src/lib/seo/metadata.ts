@@ -6,6 +6,13 @@ interface BuildMetadataOptions {
   description: string;
   path: string;
   image?: string;
+  /**
+   * Use the title exactly as given (no " | FLORA" suffix from the root
+   * layout's title template). Only the home page needs this.
+   */
+  absoluteTitle?: boolean;
+  type?: "website" | "article";
+  publishedTime?: string;
 }
 
 export function buildMetadata({
@@ -13,28 +20,35 @@ export function buildMetadata({
   description,
   path,
   image,
+  absoluteTitle = false,
+  type = "website",
+  publishedTime,
 }: BuildMetadataOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
   const ogImage = image ?? siteConfig.ogImage;
+  // The root layout's template ("%s | FLORA") adds the suffix to <title>;
+  // social tags don't go through the template, so they get it here.
+  const fullTitle = absoluteTitle ? title : `${title} | ${siteConfig.shortName}`;
 
   return {
-    title: `${title} | ${siteConfig.shortName}`,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${title} | ${siteConfig.shortName}`,
+      title: fullTitle,
       description,
       url,
       siteName: siteConfig.name,
       images: [{ url: ogImage }],
       locale: "en_IN",
-      type: "website",
+      type,
+      ...(publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${siteConfig.shortName}`,
+      title: fullTitle,
       description,
       images: [ogImage],
     },

@@ -20,6 +20,7 @@ import {
 import type { Service } from "@/types/service";
 import { Card } from "@/components/ui/Card";
 import { siteConfig } from "@/config/site";
+import { formatPrice } from "@/lib/format";
 
 const serviceIcons: Record<string, LucideIcon> = {
   "bridal-makeup": Heart,
@@ -49,6 +50,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
   const message = "Hi, I would like to know more about " + service.name;
   const whatsappHref = siteConfig.social.whatsapp + "?text=" + encodeURIComponent(message);
   const linkLabel = "Ask about " + service.name + " on WhatsApp";
+  const price = formatPrice(service.priceFrom, service.priceNote);
 
   return (
     <Card id={service.slug} className="flex h-full scroll-mt-28 flex-col p-7 focus-within:ring-2 focus-within:ring-flora-gold-deep">
@@ -60,6 +62,9 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
       </div>
       <h3 className="text-h3 mb-3">{service.name}</h3>
       <p className="mb-8 flex-1 text-sm text-flora-muted">{service.shortDescription}</p>
+      {price && (
+        <p className="-mt-4 mb-6 text-sm font-medium text-flora-gold-deep">{price}</p>
+      )}
       <a
         href={whatsappHref}
         target="_blank"

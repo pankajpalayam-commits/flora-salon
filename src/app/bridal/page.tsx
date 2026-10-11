@@ -9,6 +9,10 @@ import { Card } from "@/components/ui/Card";
 import { StarRating } from "@/components/ui/StarRating";
 import { GalleryPhoto } from "@/components/ui/GalleryPhoto";
 import { BridalPackages } from "@/components/sections/BridalPackages";
+import { ServiceDetails } from "@/components/sections/ServiceDetails";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { bridalFaqs } from "@/lib/data/faqs";
+import { services } from "@/lib/data/services";
 import { galleryItems } from "@/lib/data/gallery";
 import { testimonials } from "@/lib/data/testimonials";
 
@@ -63,6 +67,13 @@ export default function BridalPage() {
         </Container>
       </section>
 
+      <ServiceDetails
+        services={services.filter((s) => s.category === "bridal")}
+        eyebrow="Bridal & Makeup"
+        title="Bridal and event makeup services"
+        className="bg-flora-ivory"
+      />
+
       {bridalTestimonials.length > 0 && (
         <section className="bg-flora-ivory py-24 md:py-32">
           <Container>
@@ -79,6 +90,8 @@ export default function BridalPage() {
           </Container>
         </section>
       )}
+
+      <FaqSection faqs={bridalFaqs} eyebrow="Bridal FAQ" title="Planning your bridal look" className="bg-flora-grey-light" />
 
       <section className="on-dark bg-flora-black py-20">
         <Container className="text-center">

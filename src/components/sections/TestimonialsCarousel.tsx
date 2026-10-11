@@ -18,6 +18,7 @@ import { StarRating } from "@/components/ui/StarRating";
 import { testimonials } from "@/lib/data/testimonials";
 import { siteConfig } from "@/config/site";
 import type { Testimonial } from "@/types/testimonial";
+import { useSpotlight } from "@/lib/hooks/useSpotlight";
 
 /** Quotes longer than this get a "Read more" toggle. */
 const CLAMP_AT = 150;
@@ -132,12 +133,14 @@ function ReviewCard({
   onToggle: () => void;
 }) {
   const long = item.quote.length > CLAMP_AT;
+  const trackSpotlight = useSpotlight<HTMLLIElement>();
   const quoteId = `review-${item.id}`;
 
   return (
     <motion.li
       layout="position"
-      className="relative flex w-[85%] shrink-0 snap-start flex-col rounded-2xl border border-flora-line bg-flora-white p-7 shadow-soft sm:w-[360px]"
+      onPointerMove={trackSpotlight}
+      className="spotlight relative flex w-[85%] shrink-0 snap-start flex-col rounded-2xl border border-flora-line bg-flora-white p-7 shadow-soft sm:w-[360px]"
     >
       <Quote className="absolute right-6 top-6 h-8 w-8 text-flora-gold-soft" aria-hidden="true" />
       <StarRating rating={item.rating} />

@@ -10,6 +10,15 @@ import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { MobileNav } from "./MobileNav";
 
+// Pages that open on a dark banner; on these the desktop header starts
+// transparent. Everywhere else (blog posts, legal pages, 404) it is solid
+// so the menu stays readable.
+const DARK_HERO_PATHS = ["/", "/about", "/services", "/bridal", "/gallery", "/offers", "/contact", "/blog"];
+
+function hasDarkHero(pathname: string) {
+  return DARK_HERO_PATHS.includes(pathname) || pathname.startsWith("/services/");
+}
+
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
@@ -26,9 +35,9 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Every page opens on a dark hero, so the desktop header starts
-  // transparent with light text and turns solid ivory once scrolled.
-  const transparent = !scrolled;
+  // Over a dark banner the desktop header starts transparent with light
+  // text, then turns solid ivory once scrolled.
+  const transparent = !scrolled && hasDarkHero(pathname);
 
   return (
     <>

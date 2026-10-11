@@ -22,10 +22,11 @@ export function ServicesGrid() {
           {/* Closing tile fills the last grid slot and doubles as a CTA */}
           <Link
             href="/services"
-            className="on-dark group flex min-h-[220px] flex-col justify-between rounded-2xl bg-flora-black p-7 text-flora-white transition-colors duration-300 hover:bg-flora-grey-dark"
+            className="on-dark group relative flex min-h-[220px] flex-col justify-between overflow-hidden rounded-2xl bg-flora-black p-7 text-flora-white ring-1 ring-flora-gold/20 transition-[box-shadow] duration-300 hover:shadow-[0_0_0_1px_rgb(212_175_55/0.5),0_20px_50px_-12px_rgb(212_175_55/0.45)]"
           >
-            <p className="text-caption uppercase text-flora-gold">45+ treatments</p>
-            <div>
+            <div aria-hidden="true" className="animate-drift pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-flora-gold/25 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+            <p className="relative text-caption uppercase text-flora-gold">45+ treatments</p>
+            <div className="relative">
               <p className="font-display text-h3 mb-4">See the full service menu</p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-flora-gold">
                 View all services

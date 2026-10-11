@@ -6,8 +6,10 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloatButton } from "@/components/layout/WhatsAppFloatButton";
 import { PromoPopup } from "@/components/ui/PromoPopup";
 import { MotionProvider } from "@/components/layout/MotionProvider";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { siteConfig } from "@/config/site";
 import { buildLocalBusinessSchema } from "@/lib/seo/jsonld";
+import { services } from "@/lib/data/services";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -36,10 +38,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const localBusinessSchema = buildLocalBusinessSchema();
+  const localBusinessSchema = buildLocalBusinessSchema(services);
 
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en-IN" className={`${playfair.variable} ${inter.variable}`}>
       <body>
         <script
           type="application/ld+json"
@@ -52,6 +54,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <MotionProvider>
+          <ScrollProgress />
           <Header />
           <main id="main-content">{children}</main>
           <Footer />

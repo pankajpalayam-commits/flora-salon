@@ -4,6 +4,7 @@ import { Clock, MapPin, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Sparkles } from "@/components/ui/Sparkles";
 
 const linkClass = "inline-flex min-h-[32px] items-center text-flora-white/70 hover:text-flora-gold";
 
@@ -14,16 +15,21 @@ export function Footer() {
   return (
     <footer className="on-dark bg-flora-black text-flora-white">
       {/* Closing call to action */}
-      <div className="border-b border-flora-white/10">
-        <Container className="flex flex-col items-start justify-between gap-8 py-16 md:flex-row md:items-center">
+      <div className="relative overflow-hidden border-b border-flora-white/10">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="animate-drift absolute -left-20 -top-32 h-[380px] w-[520px] rounded-full bg-flora-gold/15 blur-[110px]" />
+          <div className="animate-drift-slow absolute -bottom-40 right-0 h-[380px] w-[520px] rounded-full bg-flora-amber/30 blur-[110px]" />
+        </div>
+        <Sparkles count={8} />
+        <Container className="relative flex flex-col items-start justify-between gap-8 py-16 md:flex-row md:items-center">
           <div>
             <p className="text-caption uppercase text-flora-gold mb-3">Ready when you are</p>
             <p className="font-display text-h2 text-flora-white">
-              Your next look starts <span className="italic text-flora-gold">here.</span>
+              Your next look starts <span className="text-shimmer pr-[0.1em] italic">here.</span>
             </p>
           </div>
           <div className="flex flex-wrap gap-4">
-            <Button href="/contact" variant="gold">Book Appointment</Button>
+            <Button href="/contact" variant="gold" shine>Book Appointment</Button>
             <Button href={social.whatsapp} variant="ghost-light" target="_blank" rel="noopener noreferrer">
               WhatsApp Us
             </Button>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { buildBreadcrumbSchema } from "@/lib/seo/jsonld";
+import { buildBlogPostingSchema, buildBreadcrumbSchema } from "@/lib/seo/jsonld";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { blogPosts } from "@/lib/data/blog";
@@ -30,6 +30,8 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     image: post.image,
+    type: "article",
+    publishedTime: post.date,
   });
 }
 
@@ -62,10 +64,22 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBlogPostingSchema(post)) }}
+      />
       <article className="pt-40 pb-24 md:pt-48 md:pb-32">
         <Container className="max-w-3xl">
-          <p className="text-xs text-flora-grey-dark/50 mb-4">{formatDate(post.date)}</p>
-          <h1 className="text-h1 font-display mb-8">{post.title}</h1>
+          <p className="text-sm text-flora-muted mb-4">
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            {post.updated && post.updated !== post.date && (
+              <>
+                {" · Updated "}
+                <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+              </>
+            )}
+          </p>
+          <h1 className="text-h1 mb-8">{post.title}</h1>
           <div className="relative mb-10 h-64 w-full overflow-hidden rounded-xl md:h-96">
             <Image
               src={post.image}
@@ -77,7 +91,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
           <div className="prose-flora space-y-6">
             {post.content.map((paragraph, i) => (
-              <p key={i} className="text-flora-grey-dark leading-relaxed">
+              <p key={i} className="text-lg text-flora-grey-dark leading-relaxed">
                 {paragraph}
               </p>
             ))}

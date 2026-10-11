@@ -9,12 +9,15 @@ import { GalleryGrid } from "@/components/sections/GalleryGrid";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { AboutStory } from "@/components/sections/AboutStory";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { generalFaqs } from "@/lib/data/faqs";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Premium Unisex Family Salon in Kilimanoor, Trivandrum",
+  title: "FLORA | Unisex Family Salon & Bridal Makeup in Kilimanoor, Trivandrum",
   description:
-    "FLORA offers premium hair, skin and bridal services in Kilimanoor, Trivandrum. Experienced professionals, premium products, and a family-friendly, hygienic environment.",
+    "Hair, skin and bridal services at FLORA, Kilimanoor Junction, Trivandrum. Keratin, hair botox, facials, HD bridal makeup. Open daily 9:30 AM–9 PM.",
   path: "/",
+  absoluteTitle: true,
 });
 
 export default function HomePage() {
@@ -28,6 +31,7 @@ export default function HomePage() {
       <GalleryGrid />
       <TestimonialsCarousel />
       <AboutStory />
+      <FaqSection faqs={generalFaqs} className="bg-flora-grey-light" />
       <ContactSection />
     </>
   );

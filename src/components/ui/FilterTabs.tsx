@@ -22,16 +22,18 @@ export function FilterTabs<T extends string>({
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-3 mb-12">
+    <div className="mb-12 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter">
       {options.map((opt) => (
         <button
           key={opt.value}
+          type="button"
           onClick={() => handleClick(opt.value)}
+          aria-pressed={active === opt.value}
           className={clsx(
-            "rounded-full px-5 py-2 text-sm font-medium border transition-colors duration-200 ease-premium",
+            "min-h-[44px] cursor-pointer rounded-full border px-5 text-sm font-medium transition-colors duration-200 ease-premium",
             active === opt.value
-              ? "bg-flora-black text-flora-white border-flora-black"
-              : "border-black/10 text-flora-grey-dark hover:border-flora-gold hover:text-flora-gold"
+              ? "border-flora-black bg-flora-black text-flora-white"
+              : "border-flora-line bg-flora-white text-flora-grey-dark hover:border-flora-gold-deep hover:text-flora-gold-deep"
           )}
         >
           {opt.label}

@@ -14,7 +14,7 @@ export default function TermsPage() {
     <article className="pt-40 pb-24 md:pt-48 md:pb-32">
       <Container className="max-w-3xl">
         <h1 className="text-h1 font-display mb-8">Terms &amp; Conditions</h1>
-        <div className="space-y-6 text-flora-grey-dark/90 leading-relaxed">
+        <div className="space-y-6 text-flora-grey-dark leading-relaxed">
           <p>Last updated: January 2026</p>
           <h2 className="text-h3 font-display pt-4">Appointments</h2>
           <p>
@@ -38,7 +38,7 @@ export default function TermsPage() {
           <h2 className="text-h3 font-display pt-4">Contact</h2>
           <p>
             Questions about these terms can be sent to{" "}
-            <a href={`mailto:${siteConfig.business.email}`} className="text-flora-gold">
+            <a href={`mailto:${siteConfig.business.email}`} className="text-flora-gold-deep underline underline-offset-4 hover:text-flora-black">
               {siteConfig.business.email}
             </a>
             .

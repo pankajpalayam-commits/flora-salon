@@ -9,8 +9,9 @@ export function Card({
   return (
     <div
       className={clsx(
-        "group rounded-xl bg-flora-white border border-black/5 shadow-sm",
-        "transition-all duration-300 ease-premium hover:-translate-y-1 hover:shadow-lg",
+        "group relative rounded-2xl border border-flora-line bg-flora-white shadow-soft",
+        "transition-[transform,box-shadow,border-color] duration-300 ease-premium",
+        "hover:-translate-y-1 hover:border-flora-gold/50 hover:shadow-lift",
         className
       )}
       {...rest}

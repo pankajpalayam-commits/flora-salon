@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
 // EDIT THESE — replace with your real numbers
@@ -15,26 +15,33 @@ const stats = [
 function Counter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reduceMotion = useReducedMotion();
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
+    if (reduceMotion) {
+      setDisplay(value);
+      return;
+    }
     const duration = 1500;
     const startTime = performance.now();
+    let frame = 0;
 
     function tick(now: number) {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setDisplay(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(tick);
+      if (progress < 1) frame = requestAnimationFrame(tick);
     }
 
-    requestAnimationFrame(tick);
-  }, [inView, value]);
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, value, reduceMotion]);
 
   return (
-    <span ref={ref}>
-      {display.toLocaleString()}
+    <span ref={ref} className="tabular-nums">
+      {display.toLocaleString("en-IN")}
       {suffix}
     </span>
   );
@@ -42,20 +49,20 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export function StatsCounter() {
   return (
-    <section className="bg-flora-black py-16 md:py-20">
+    <section className="border-b border-flora-line bg-flora-ivory py-14 md:py-16">
       <Container>
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-y-10 md:grid-cols-4 md:divide-x md:divide-flora-line">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-display text-h2 text-flora-gold">
-                <Counter value={stat.value} suffix={stat.suffix} />
-              </p>
-              <p className="mt-2 text-xs uppercase tracking-wide text-flora-white/70 md:text-sm">
+            <div key={stat.label} className="flex flex-col-reverse items-center justify-end text-center md:px-6">
+              <dt className="mt-2 text-caption uppercase text-flora-muted">
                 {stat.label}
-              </p>
+              </dt>
+              <dd className="font-display text-h2 text-flora-black">
+                <Counter value={stat.value} suffix={stat.suffix} />
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </Container>
     </section>
   );

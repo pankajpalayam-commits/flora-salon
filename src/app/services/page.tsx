@@ -31,7 +31,7 @@ export default function ServicesPage() {
         title="Hair, Skin & Bridal Services"
         description="Every service at our unisex family salon in Kilimanoor begins with a personal consultation, using premium products and experienced hands."
       />
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {serviceCategories.map((category, i) => (
@@ -42,7 +42,7 @@ export default function ServicesPage() {
             <h2 className="text-h3 font-display mb-3">
               Not sure which service is right for you?
             </h2>
-            <p className="text-flora-grey-dark/80 mb-6 max-w-md mx-auto">
+            <p className="text-flora-muted mb-6 max-w-md mx-auto">
               Book a free consultation and our team will recommend the best
               treatment for your hair and skin.
             </p>

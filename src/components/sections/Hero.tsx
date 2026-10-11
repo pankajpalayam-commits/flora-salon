@@ -1,76 +1,125 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Clock, MapPin, Pause, Phone, Play, Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 
 // EDIT THESE — each slide is a 3-line headline + one subheading line.
-// Rotates automatically every 5 seconds.
+// The middle line is set in gold italic. Rotates every 6 seconds.
 const slides = [
   {
     lines: ["Beautiful Hair.", "Healthy Skin.", "Confident You."],
-    sub: "Premium Hair, Skin & Bridal Services in Kilimanoor, Trivandrum.",
+    sub: "Premium hair, skin & bridal services in Kilimanoor, Trivandrum.",
   },
   {
     lines: ["Bridal Looks,", "Beautifully", "Crafted."],
-    sub: "HD & Airbrush Bridal Makeup Artists in Trivandrum.",
+    sub: "HD & airbrush bridal makeup artists in Trivandrum.",
   },
   {
     lines: ["Kilimanoor's", "Trusted Family", "Salon."],
-    sub: "Experienced Professionals. Premium Products. Hygienic Care.",
+    sub: "Experienced professionals. Premium products. Hygienic care.",
   },
 ];
 
-const AUTO_ADVANCE_MS = 5000;
+const AUTO_ADVANCE_MS = 6000;
 
 export function Hero() {
+  const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Rotation stops when the visitor pauses it, hovers/focuses the hero,
+  // or has "reduce motion" switched on.
+  const rotating = !paused && !hovered && !reduceMotion;
 
   useEffect(() => {
+    if (!rotating) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(timer);
-  }, []);
+  }, [rotating]);
+
+  // The pause control also stops the background video.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (paused || reduceMotion) video.pause();
+    else video.play().catch(() => {});
+  }, [paused, reduceMotion]);
 
   const current = slides[index];
+  const { business } = siteConfig;
 
   return (
-    <section className="relative flex h-screen min-h-[640px] w-full items-center justify-center overflow-hidden bg-flora-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-flora-black/60 via-flora-black/70 to-flora-black" />
+    <section
+      className="on-dark relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-flora-black"
+      aria-roledescription="carousel"
+      aria-label="FLORA highlights"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocusCapture={() => setHovered(true)}
+      onBlurCapture={() => setHovered(false)}
+    >
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover opacity-50"
+        preload="metadata"
+        poster="/images/hero/hero-placeholder.jpg"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover opacity-45"
       >
         <source src="/hero.mp4" type="video/mp4" />
       </video>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-flora-black/70 via-flora-black/55 to-flora-black"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-flora-gold/10 blur-3xl"
+      />
 
-      <div className="relative z-10 mx-auto max-w-content px-6 text-center">
-        <p className="text-caption uppercase text-flora-gold mb-6">
-          FLORA - Unisex Family Salon-Kilimanoor Trivandrum
-        </p>
+      <div className="relative z-10 mx-auto flex w-full max-w-content flex-1 flex-col items-center justify-center px-6 pb-12 pt-32 text-center md:px-10">
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-flora-gold/40 bg-flora-black/40 px-4 py-2 text-caption uppercase text-flora-gold backdrop-blur"
+        >
+          <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+          Unisex Family Salon · Kilimanoor
+        </motion.p>
 
-        <div className="relative min-h-[9rem] md:min-h-[15rem]">
+        <div className="relative min-h-[11rem] w-full sm:min-h-[13rem] md:min-h-[17rem]" aria-live={rotating ? "off" : "polite"}>
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${slides.length}`}
             >
-              <h1 className="font-display text-h1 text-flora-white">
-                {current.lines.map((line) => (
-                  <span key={line} className="block">
+              <h1 className="text-h1 text-flora-white">
+                {current.lines.map((line, i) => (
+                  <span
+                    key={line}
+                    className={i === 1 ? "block italic text-flora-gold" : "block"}
+                  >
                     {line}
                   </span>
                 ))}
               </h1>
-              <p className="mx-auto mt-6 max-w-xl text-flora-white/80">
+              <p className="mx-auto mt-6 max-w-xl text-lg text-flora-white/80">
                 {current.sub}
               </p>
             </motion.div>
@@ -78,50 +127,87 @@ export function Hero() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <Button href="/contact" variant="primary">
+          <Button href="/contact" variant="gold" className="px-9">
             Book Appointment
           </Button>
-          <Button href={`tel:${siteConfig.business.phone}`} variant="ghost" className="text-flora-white border-flora-white/40 hover:border-flora-gold">
-            Call Now
-          </Button>
-          <Button href={siteConfig.social.whatsapp} variant="ghost" className="text-flora-white border-flora-white/40 hover:border-flora-gold">
-            WhatsApp
+          <Button
+            href={siteConfig.social.whatsapp}
+            variant="ghost-light"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chat on WhatsApp
           </Button>
         </motion.div>
 
-        <div className="mt-8 flex justify-center gap-2">
+        <a
+          href={`tel:${business.phone}`}
+          className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-flora-white/75 hover:text-flora-gold"
+        >
+          <Phone className="h-4 w-4" aria-hidden="true" />
+          Or call {business.phone}
+        </a>
+
+        <div className="mt-8 flex items-center gap-1">
           {slides.map((_, i) => (
             <button
               key={i}
+              type="button"
               onClick={() => setIndex(i)}
               aria-label={`Show slide ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === index ? "w-6 bg-flora-gold" : "w-2 bg-flora-white/30"
-              }`}
-            />
+              aria-current={i === index ? "true" : undefined}
+              className="group inline-flex h-11 w-8 cursor-pointer items-center justify-center"
+            >
+              <span
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === index ? "w-6 bg-flora-gold" : "w-1.5 bg-flora-white/40 group-hover:bg-flora-white/70"
+                }`}
+              />
+            </button>
           ))}
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-label={paused ? "Play slideshow and video" : "Pause slideshow and video"}
+            className="ml-2 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-flora-white/70 hover:bg-flora-white/10 hover:text-flora-white"
+          >
+            {paused ? (
+              <Play className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Pause className="h-4 w-4" aria-hidden="true" />
+            )}
+          </button>
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-8 w-5 rounded-full border border-flora-white/50 flex items-start justify-center p-1"
-        >
-          <div className="h-1.5 w-1.5 rounded-full bg-flora-gold" />
-        </motion.div>
-      </motion.div>
+      {/* Trust strip */}
+      <div className="relative z-10 border-t border-flora-white/10 bg-flora-black/60 backdrop-blur">
+        <ul className="mx-auto grid max-w-content grid-cols-1 gap-3 px-6 py-5 text-sm text-flora-white/80 sm:grid-cols-3 md:px-10">
+          <li className="flex items-center justify-center gap-2">
+            <span className="flex text-flora-gold" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-current" />
+              ))}
+            </span>
+            <a href={siteConfig.social.googleReviews} target="_blank" rel="noopener noreferrer" className="hover:text-flora-gold">
+              500+ five-star Google reviews
+            </a>
+          </li>
+          <li className="flex items-center justify-center gap-2">
+            <Clock className="h-4 w-4 text-flora-gold" aria-hidden="true" />
+            Open daily · {business.hours[0].time}
+          </li>
+          <li className="flex items-center justify-center gap-2">
+            <MapPin className="h-4 w-4 text-flora-gold" aria-hidden="true" />
+            Kilimanoor Junction, Trivandrum
+          </li>
+        </ul>
+      </div>
     </section>
   );
 }

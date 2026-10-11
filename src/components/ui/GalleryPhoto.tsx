@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Expand } from "lucide-react";
 import { clsx } from "clsx";
 
 interface GalleryPhotoProps {
@@ -23,12 +22,12 @@ export function GalleryPhoto({
   delay = 0,
 }: GalleryPhotoProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
+    <motion.figure
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.1, delay, ease: [0.4, 0, 0.2, 1] }}
-      className={clsx("group relative overflow-hidden", containerClassName)}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay, ease: [0.4, 0, 0.2, 1] }}
+      className={clsx("group relative overflow-hidden bg-flora-grey-light", containerClassName)}
     >
       <Image
         src={src}
@@ -36,16 +35,13 @@ export function GalleryPhoto({
         fill
         sizes={sizes}
         className={clsx(
-          "object-cover transition-transform duration-700 ease-premium group-hover:scale-110",
+          "object-cover transition-transform duration-700 ease-premium group-hover:scale-105",
           imageClassName
         )}
       />
-      <div className="absolute inset-0 flex items-center justify-center bg-flora-black/0 transition-colors duration-500 ease-premium group-hover:bg-flora-black/40">
-        <Expand
-          className="h-8 w-8 text-flora-white opacity-0 scale-75 transition-all duration-500 ease-premium group-hover:opacity-100 group-hover:scale-100"
-          strokeWidth={1.5}
-        />
-      </div>
-    </motion.div>
+      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-flora-black/70 to-transparent p-4 text-sm text-flora-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {alt}
+      </figcaption>
+    </motion.figure>
   );
 }

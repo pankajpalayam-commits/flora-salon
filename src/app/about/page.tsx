@@ -30,9 +30,9 @@ export default function AboutPage() {
       />
       <PageHero eyebrow="About FLORA" title="Our Story" />
 
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-          <div className="relative h-80 w-full overflow-hidden rounded-xl lg:h-[420px]">
+          <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[2rem]">
             <Image
               src="/images/team/salon-team.jpg"
               alt="FLORA interior and team"
@@ -46,14 +46,14 @@ export default function AboutPage() {
             <h2 className="text-h2 font-display mb-6">
               A Family Salon, Built on Trust
             </h2>
-            <p className="text-flora-grey-dark/80 max-w-md mb-4">
+            <p className="text-flora-muted max-w-md mb-4">
               FLORA Unisex Family Salon and Makeover Collections opened its
               doors in Kilimanoor with a simple idea: every member of the
               family deserves premium hair, skin and bridal care, delivered
               with the same warmth and attention to detail you'd expect from
               a luxury salon in any major city.
             </p>
-            <p className="text-flora-grey-dark/80 max-w-md">
+            <p className="text-flora-muted max-w-md">
               Today, we're proud to be one of the most trusted names for
               hair treatments, facials and bridal makeup in Trivandrum —
               built entirely on repeat visits and word of mouth.
@@ -66,22 +66,22 @@ export default function AboutPage() {
         <Container>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <Card className="p-10">
-              <p className="text-caption uppercase text-flora-gold mb-3">Mission</p>
+              <p className="text-caption uppercase text-flora-gold-deep mb-3">Mission</p>
               <h3 className="text-h3 font-display mb-4">
                 Premium care for every member of the family
               </h3>
-              <p className="text-sm text-flora-grey-dark/80">
+              <p className="text-sm text-flora-muted">
                 To deliver premium, personalized hair, skin and bridal
                 services in a hygienic, welcoming environment — for men,
                 women and children alike.
               </p>
             </Card>
             <Card className="p-10">
-              <p className="text-caption uppercase text-flora-gold mb-3">Vision</p>
+              <p className="text-caption uppercase text-flora-gold-deep mb-3">Vision</p>
               <h3 className="text-h3 font-display mb-4">
                 Kilimanoor's most trusted salon
               </h3>
-              <p className="text-sm text-flora-grey-dark/80">
+              <p className="text-sm text-flora-muted">
                 To be the first name families in Kilimanoor and Trivandrum
                 think of for hair, skin and bridal care — and eventually,
                 a name recognized across Kerala.
@@ -91,7 +91,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <SectionHeading eyebrow="Our Team" title="Meet the Team" align="center" />
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -107,14 +107,14 @@ export default function AboutPage() {
                   />
                 </div>
                 <h3 className="text-sm font-medium text-flora-black">{member.name}</h3>
-                <p className="text-xs text-flora-grey-dark/60">{member.role}</p>
+                <p className="text-xs text-flora-muted">{member.role}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="bg-flora-black py-20 text-center">
+      <section className="on-dark bg-flora-black py-20 text-center">
         <Container>
           <p className="text-caption uppercase text-flora-gold mb-3">Our Promise</p>
           <h2 className="text-h2 font-display text-flora-white max-w-2xl mx-auto">

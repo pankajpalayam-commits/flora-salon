@@ -24,7 +24,7 @@ export function OffersGrid() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {offers.map((offer) => (
           <Card key={offer.id} className="overflow-hidden">
-            <div className="relative h-64 w-full bg-flora-grey-light">
+            <div className="relative h-64 w-full rounded-t-2xl bg-flora-grey-light">
               <div className="grid h-full grid-cols-2 gap-0.5">
                 {offer.images.map((src, i) => (
                   <button
@@ -44,13 +44,13 @@ export function OffersGrid() {
                   </button>
                 ))}
               </div>
-              <span className="absolute top-4 right-4 rounded-full bg-flora-gold px-3 py-1 text-xs font-medium text-flora-black">
+              <span className="absolute top-4 right-4 rounded-full bg-flora-black px-3 py-1.5 text-xs font-medium text-flora-white">
                 Valid till {formatDate(offer.validUntil)}
               </span>
             </div>
             <div className="p-6">
-              <h3 className="text-h3 font-display mb-2">{offer.title}</h3>
-              <p className="text-sm text-flora-grey-dark/80 mb-4">{offer.description}</p>
+              <h3 className="text-h3 mb-2">{offer.title}</h3>
+              <p className="text-sm text-flora-muted mb-6">{offer.description}</p>
               <Button href="/contact" variant="ghost">
                 Claim This Offer
               </Button>
@@ -73,8 +73,9 @@ export function OffersGrid() {
           >
             <button
               onClick={() => setLightbox(null)}
+              type="button"
               aria-label="Close"
-              className="absolute right-4 top-4 text-flora-white hover:text-flora-gold"
+              className="absolute right-3 top-3 inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-flora-white hover:bg-flora-white/10 hover:text-flora-gold"
             >
               <X className="h-8 w-8" strokeWidth={1.5} />
             </button>

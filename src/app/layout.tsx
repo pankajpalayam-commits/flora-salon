@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloatButton } from "@/components/layout/WhatsAppFloatButton";
 import { PromoPopup } from "@/components/ui/PromoPopup";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import { siteConfig } from "@/config/site";
 import { buildLocalBusinessSchema } from "@/lib/seo/jsonld";
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -37,7 +39,7 @@ export default function RootLayout({
   const localBusinessSchema = buildLocalBusinessSchema();
 
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
         <script
           type="application/ld+json"
@@ -45,15 +47,17 @@ export default function RootLayout({
         />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-flora-gold focus:px-4 focus:py-2 focus:text-flora-black"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-flora-black focus:px-4 focus:py-2 focus:text-flora-white"
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
-        <WhatsAppFloatButton />
-        <PromoPopup />
+        <MotionProvider>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <WhatsAppFloatButton />
+          <PromoPopup />
+        </MotionProvider>
       </body>
     </html>
   );

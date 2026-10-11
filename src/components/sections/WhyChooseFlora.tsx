@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Award,
@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Card } from "@/components/ui/Card";
 
 const reasons: { title: string; description: string; icon: LucideIcon }[] = [
   {
@@ -54,40 +53,30 @@ const metrics = [
   { label: "Quality of Service", value: 99 },
 ];
 
-function AnimatedBar({ label, value }: { label: string; value: number }) {
+function MetricBar({ label, value }: { label: string; value: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 1400;
-    const startTime = performance.now();
-
-    function tick(now: number) {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  }, [inView, value]);
 
   return (
-    <div ref={ref} className="mb-8 last:mb-0">
+    <div ref={ref}>
       <div className="mb-2 flex items-baseline justify-between">
-        <span className="text-sm font-medium uppercase tracking-wide text-flora-grey-dark">
-          {label}
-        </span>
-        <span className="font-display text-h3 text-flora-gold">{display}%</span>
+        <span className="text-caption uppercase text-flora-muted">{label}</span>
+        <span className="font-display text-h3 text-flora-black tabular-nums">{value}%</span>
       </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-flora-grey-light">
+      <div
+        className="h-1.5 w-full overflow-hidden rounded-full bg-flora-line"
+        role="meter"
+        aria-label={label}
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        {/* scaleX keeps the animation on the compositor — no layout work */}
         <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${value}%` } : { width: 0 }}
-          transition={{ duration: 1.4, ease: [0.4, 0, 0.2, 1] }}
-          className="h-full rounded-full bg-flora-gold"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: inView ? value / 100 : 0 }}
+          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+          className="h-full w-full origin-left rounded-full bg-flora-gold-deep"
         />
       </div>
     </div>
@@ -96,45 +85,43 @@ function AnimatedBar({ label, value }: { label: string; value: number }) {
 
 export function WhyChooseFlora() {
   return (
-    <section className="bg-flora-white py-24 md:py-32">
-      <Container>
-        <SectionHeading
-          eyebrow="Why FLORA"
-          title="Why Choose FLORA"
-          align="center"
-        />
-
-        <div className="mx-auto mb-16 max-w-xl">
-          {metrics.map((metric) => (
-            <AnimatedBar key={metric.label} label={metric.label} value={metric.value} />
-          ))}
+    <section className="bg-flora-ivory py-24 md:py-32">
+      <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[5fr_7fr] lg:gap-20">
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <SectionHeading
+            eyebrow="Why FLORA"
+            title="Care you can see, comfort you can feel"
+            description="A family salon in Kilimanoor where every visit starts with listening — and ends with a result you love."
+            className="!mb-10"
+          />
+          <div className="space-y-6 rounded-2xl border border-flora-line bg-flora-white p-6 shadow-soft md:p-8">
+            {metrics.map((metric) => (
+              <MetricBar key={metric.label} label={metric.label} value={metric.value} />
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-x-10 gap-y-2 sm:grid-cols-2">
           {reasons.map((reason, i) => {
             const Icon = reason.icon;
             return (
-              <motion.div
+              <motion.li
                 key={reason.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1.2, delay: i * 0.08, ease: [0.4, 0, 0.2, 1] }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease: [0.4, 0, 0.2, 1] }}
+                className="border-t border-flora-line py-8"
               >
-                <Card className="p-8 text-center hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-flora-gold-soft">
-                    <Icon
-                      className="h-7 w-7 text-flora-gold group-hover:animate-spin-once"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  <h3 className="text-h3 font-display mb-2">{reason.title}</h3>
-                  <p className="text-sm text-flora-grey-dark/80">{reason.description}</p>
-                </Card>
-              </motion.div>
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-flora-gold-soft">
+                  <Icon className="h-6 w-6 text-flora-gold-deep" strokeWidth={1.5} aria-hidden="true" />
+                </div>
+                <h3 className="text-h3 mb-2">{reason.title}</h3>
+                <p className="text-flora-muted">{reason.description}</p>
+              </motion.li>
             );
           })}
-        </div>
+        </ul>
       </Container>
     </section>
   );

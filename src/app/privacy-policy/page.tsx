@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
     <article className="pt-40 pb-24 md:pt-48 md:pb-32">
       <Container className="max-w-3xl">
         <h1 className="text-h1 font-display mb-8">Privacy Policy</h1>
-        <div className="space-y-6 text-flora-grey-dark/90 leading-relaxed">
+        <div className="space-y-6 text-flora-grey-dark leading-relaxed">
           <p>Last updated: July 2026</p>
           <p>
             {siteConfig.name} ("we", "our", "us") respects your privacy. This
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-h3 font-display pt-4">Contact Us</h2>
           <p>
             If you have questions about this policy, contact us at{" "}
-            <a href={`mailto:${siteConfig.business.email}`} className="text-flora-gold">
+            <a href={`mailto:${siteConfig.business.email}`} className="text-flora-gold-deep underline underline-offset-4 hover:text-flora-black">
               {siteConfig.business.email}
             </a>
             .

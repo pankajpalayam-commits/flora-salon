@@ -40,7 +40,7 @@ export default function BlogIndexPage() {
         title="Beauty Tips & Guides"
         description="Hair, skin and bridal advice from the FLORA team."
       />
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {blogPosts.map((post) => (
@@ -60,7 +60,7 @@ export default function BlogIndexPage() {
                       {formatDate(post.date)}
                     </p>
                     <h2 className="text-h3 font-display mb-2">{post.title}</h2>
-                    <p className="text-sm text-flora-grey-dark/80">{post.excerpt}</p>
+                    <p className="text-sm text-flora-muted">{post.excerpt}</p>
                   </div>
                 </Card>
               </Link>

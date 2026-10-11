@@ -29,7 +29,7 @@ export default function OffersPage() {
         title="Current Offers & Packages"
         description="Limited-time offers on our most-loved services. Terms apply — ask our team for details."
       />
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <OffersGrid />
         </Container>

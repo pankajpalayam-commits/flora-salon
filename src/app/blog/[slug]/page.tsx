@@ -77,7 +77,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
           <div className="prose-flora space-y-6">
             {post.content.map((paragraph, i) => (
-              <p key={i} className="text-flora-grey-dark/90 leading-relaxed">
+              <p key={i} className="text-flora-grey-dark leading-relaxed">
                 {paragraph}
               </p>
             ))}

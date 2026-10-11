@@ -7,7 +7,7 @@ export default function NotFound() {
       <p className="font-display text-h1 text-flora-black">404</p>
       <AnimatedDivider align="center" className="my-6" />
       <h1 className="text-h3 font-display mb-3">Page Not Found</h1>
-      <p className="max-w-sm text-flora-grey-dark/80 mb-8">
+      <p className="max-w-sm text-flora-muted mb-8">
         The page you&apos;re looking for doesn&apos;t exist or may have moved.
       </p>
       <Button href="/" variant="primary">

@@ -5,7 +5,7 @@ interface StarRatingProps {
 export function StarRating({ rating }: StarRatingProps) {
   return (
     <div
-      className="flex gap-0.5 text-flora-gold"
+      className="flex gap-0.5 text-flora-gold-deep"
       role="img"
       aria-label={`${rating} out of 5 stars`}
     >

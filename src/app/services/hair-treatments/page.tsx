@@ -33,7 +33,7 @@ export default function HairTreatmentsPage() {
         title="Hair Treatments in Trivandrum"
         description="From Hair Botox to Keratin and Nanoplastia — our hair treatments in Kilimanoor are tailored to restore strength, shine and manageability."
       />
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {hairServices.map((service, i) => (

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
+  ArrowUpRight,
   Scissors,
   Palette,
   Droplet,
@@ -39,25 +40,39 @@ export function ServiceCategoryCard({ category, index, linkMode = "internal", de
   const whatsappHref = siteConfig.social.whatsapp + "?text=" + encodeURIComponent(message);
   const linkLabel = linkMode === "whatsapp" ? "Ask about " + category.title + " on WhatsApp" : "Learn more about " + category.title;
 
+  // The link is stretched over the whole card (after:inset-0) so the
+  // entire tile is one large tap target.
+  const linkClasses =
+    "inline-flex items-center gap-1 text-sm font-medium text-flora-black after:absolute after:inset-0 after:rounded-2xl after:content-[''] group-hover:text-flora-gold-deep";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.2, delay, ease: [0.4, 0, 0.2, 1] }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay, ease: [0.4, 0, 0.2, 1] }}
+      className="h-full"
     >
-      <Card className="bg-flora-grey-light border-none shadow-none p-8 hover:scale-110 hover:shadow-xl hover:border-flora-gold/30">
-        <p className="text-xs font-medium text-flora-gold mb-4">{String(index).padStart(2, "0")}</p>
-        <h3 className="text-h3 font-display mb-3">{category.title}</h3>
-        <p className="text-sm text-flora-grey-dark/80 mb-8">{category.description}</p>
-        <div className="flex items-center justify-between">
-          <Icon className="h-8 w-8 text-flora-gold group-hover:animate-spin-once" strokeWidth={1.5} />
-          {linkMode === "whatsapp" ? (
-            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-flora-black hover:text-flora-gold" aria-label={linkLabel}>Learn More &rarr;</a>
-          ) : (
-            <Link href={category.href} className="text-sm font-medium text-flora-black hover:text-flora-gold" aria-label={linkLabel}>Learn More &rarr;</Link>
-          )}
+      <Card className="flex h-full flex-col p-7 focus-within:ring-2 focus-within:ring-flora-gold-deep">
+        <div className="mb-8 flex items-start justify-between">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-flora-gold-soft">
+            <Icon className="h-6 w-6 text-flora-gold-deep" strokeWidth={1.5} aria-hidden="true" />
+          </div>
+          <span className="font-display text-sm italic text-flora-muted">{String(index).padStart(2, "0")}</span>
         </div>
+        <h3 className="text-h3 mb-3">{category.title}</h3>
+        <p className="mb-8 flex-1 text-sm text-flora-muted">{category.description}</p>
+        {linkMode === "whatsapp" ? (
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className={linkClasses} aria-label={linkLabel}>
+            Ask on WhatsApp
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+          </a>
+        ) : (
+          <Link href={category.href} className={linkClasses} aria-label={linkLabel}>
+            Learn more
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+          </Link>
+        )}
       </Card>
     </motion.div>
   );

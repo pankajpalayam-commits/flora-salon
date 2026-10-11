@@ -33,7 +33,7 @@ export default function SkinTreatmentsPage() {
         title="Skin & Facial Treatments"
         description="Customized facials, Hydra Facials, de-tan and hair removal services designed to keep your skin healthy and radiant year-round."
       />
-      <section className="bg-flora-white py-24 md:py-32">
+      <section className="bg-flora-ivory py-24 md:py-32">
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {skinServices.map((service, i) => (

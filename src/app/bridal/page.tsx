@@ -50,7 +50,7 @@ export default function BridalPage() {
                 src={item.image}
                 alt={item.alt}
                 sizes="(max-width: 768px) 50vw, 33vw"
-                containerClassName="aspect-square rounded-lg"
+                containerClassName="aspect-square rounded-2xl"
                 delay={i * 0.06}
               />
             ))}
@@ -64,14 +64,14 @@ export default function BridalPage() {
       </section>
 
       {bridalTestimonials.length > 0 && (
-        <section className="bg-flora-white py-24 md:py-32">
+        <section className="bg-flora-ivory py-24 md:py-32">
           <Container>
             <SectionHeading eyebrow="Testimonials" title="From Our Brides" align="center" />
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-3xl mx-auto">
               {bridalTestimonials.map((t) => (
                 <Card key={t.id} className="p-6">
                   <StarRating rating={t.rating} />
-                  <p className="mt-4 text-sm text-flora-grey-dark/90">&ldquo;{t.quote}&rdquo;</p>
+                  <p className="mt-4 text-sm text-flora-grey-dark">&ldquo;{t.quote}&rdquo;</p>
                   <p className="mt-4 text-sm font-medium text-flora-black">{t.name}</p>
                 </Card>
               ))}
@@ -80,7 +80,7 @@ export default function BridalPage() {
         </section>
       )}
 
-      <section className="bg-flora-black py-20">
+      <section className="on-dark bg-flora-black py-20">
         <Container className="text-center">
           <h2 className="text-h2 font-display text-flora-white mb-4">
             Ready to plan your bridal look?
@@ -88,7 +88,7 @@ export default function BridalPage() {
           <p className="text-flora-white/70 max-w-md mx-auto mb-8">
             Book a bridal consultation and trial session with our team today.
           </p>
-          <Button href="/contact" variant="primary" className="bg-flora-gold text-flora-black hover:bg-flora-white">
+          <Button href="/contact" variant="gold">
             Book Consultation
           </Button>
         </Container>
